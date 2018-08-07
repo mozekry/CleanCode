@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Clean Code Summary</title>
+  </head>
+  <body>
+    <h1>Chapter 2: Meaningful Names</h1>
+  <h2>Variables Names</h2>
+  <ol>
+    <li>Choose names that answer these questions:
+      	<ul type="circle">
+          <li>why it exists?</li>
+          <li>what it does?</li>
+          <li>how it is used?</li>
+        </ul>
+    </li>
+    <li>Avoid Disinformation
+      <ul type="circle">
+        <li>Do not refer to a grouping of accounts as an accountList unless it is actually a List</li>
+      </ul>
+    </li>
+
+    <li>Make Meaningful Distinctions
+      <ul type="circle">
+        <li>If names must be different, then they should also mean something different</li>
+      </ul>
+    </li>
+
+    <li>Use Pronounceable Names
+      <ul type="circle">
+        <li>If you can't pronounce it, you can not discuss it without sounding like an idiot</li>
+      </ul>
+    </li>
+
+    <li>Use Searchable Names
+      <ul type="circle">
+        <li>Single-letter names and numeric constants have a particular problem in that they are not easy to locate across a body of text</li>
+      </ul>
+    </li>
+
+    <li>Avoid Encodings</li>
+    <li>Avoid Mental Mapping
+<ul type="circle">
+  <li>Readers shouldn't have to mentally translate your names into other names they already
+  know. <br>This problem generally arises from a choice to use neither problem domain terms
+  nor solution domain terms</li>
+</ul>
+    </li>
+  </ol>
+<h2>Class Names</h2>
+<ul type="circle">
+  <li>Classes and objects should have noun or noun phrase names like Customer, WikiPage,
+  Account, and AddressParser.<br> Avoid words like Manager, Processor, Data, or Info in the name
+  of a class. A class name should not be a verb.</li>
+</ul>
+
+
+  <h2>Method Names</h2>
+  <ol>
+    <li>Methods should have verb or verb phrase names</li>
+    <li>When constructors are overloaded, use static factory methods with names that
+    	describe the arguments.<br>For example,
+    	Complex fulcrumPoint = Complex.FromRealNumber(23.0);<br>
+    	is generally better than
+    	Complex fulcrumPoint = new Complex(23.0);</li>
+  </ol>
+
+  <h2>General</h2>
+  <ol>
+    <li>Don't Be Cute
+      <ul>
+        <li>Say what you mean. Mean what you say.</li>
+      </ul>
+    	</li>
+    <li>Pick One Word per Concept
+      <ul>
+        <li>Pick one word for one abstract concept and stick with it. For instance, it's confusing to
+      	have fetch, retrieve, and get as equivalent methods of different classes</li>
+      </ul>
+    	</li>
+    <li>Don't Pun(use multiple meanings of a term)
+      <ul>
+        <li>Avoid using the same word for two purposes</li>
+      </ul>
+    	</li>
+    <li>Use Solution Domain Names
+      <ul>
+        <li>The name AccountVisitor means a great deal to a programmer who is familiar with
+      	the VISITOR pattern. What programmer would not know what a JobQueue was?</li>
+      </ul>
+    	</li>
+    <li>Use Problem Domain Names
+      <ul>
+        <li>When there is no "programmer-eese" for what you're doing, use the name from the problem
+        	domain.<br>At least the programmer who maintains your code can ask a domain expert
+        	what it means</li>
+      </ul>
+    </li>
+    <li>Add Meaningful Context
+      <ul>
+        <li>place names in context for your reader by enclosing them in well-named
+      	classes, functions, or namespaces</li>
+      </ul>
+    	</li>
+    <li>Don't Add Gratuitous Context
+      <ul>
+        <li>Shorter names are generally better than longer ones, so long as they are clear. Add no
+      	more context to a name than is necessary</li>
+      </ul>
+    	</li>
+  </body>
+</html>
