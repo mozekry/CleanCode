@@ -37,6 +37,20 @@ names you choose for your modules</li>
         </ul>
 
       </li>
+      <li>Have No Side Effects
+<ul>
+  <li>function should do one thing, but it also does other hidden
+things <br>
+examples:
+<ul>
+  <li>make unexpected changes to the variables of its own class.</li>
+  <li>make unexpected changes to the parameters passed into the function or to system globals.</li>
+</ul>
+</li>
+
+</ul>
+
+      </li>
     </ol>
     <h2>Function Arguments</h2>
     <ul type="circle">
@@ -60,7 +74,7 @@ InputStream fileOpen(“MyFile”){
   }
 </pre></code>
          </li>
-         <li>Flag Arguments
+         <li>Flag Argument
            <ul>
              <li>Passing a boolean into a function is a terrible practice<br>
                 because it does one thing if the flag is true and another if false <br>
@@ -74,7 +88,40 @@ InputStream fileOpen(“MyFile”){
       </ol>
 
     </li>
+  <li>Dyadic Functions (Double Argument Function)
+  <ul>
+    <li>There are times, where two arguments are appropriate.<br>
+    example: Point p = new Point(0,0); is reasonable <br>
+    because thay are ordered components of a single value
+   </li>
+   <li>Should think of mechanims to convert them into monads. <br>
+     example of convert writeField(output-Stream, name) into monadic: <ol>
+       <li>Make the writeField method a member of outputStream so that you can say <br>
+       outputStream.writeField(name).</li>
+       <li>Make the outputStream a member variable of the current
+  class so that you don’t have to pass it.</li>
+  <li>Extract a new class like FieldWriter
+that takes the outputStream in its constructor and has a write method.</li>
+     </ol></li>
+  </ul>
+</li>
+
+<li>Triadic Functions (Triple Argument Function)
+
+<ul>
+  <li>When a function seems to need three or more arguments, likely some of
+arguments should be wrapped into a class of their own.<br>
+example: the difference between the two following declarations:
+<pre>
+Circle makeCircle(double x, double y, double radius);
+Circle makeCircle(Point center, double radius);
+</pre>
+</li>
+</ul>
+
+</li>
     </ul>
+
 <h2>Switch Statement in Function</h2>
 <ul type="circle">
   <li>Bury the switch statement in the basement of an ABSTRACT FACTORY<br>
