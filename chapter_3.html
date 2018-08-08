@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Clean Code Summary</title>
+  </head>
+  <body>
+    <a href="index.html">Home</a>
+    <h1>Chapter 3: Functions</h1>
+    <h2>Functions Attribut</h2>
+    <ol>
+      <li>Small
+        <ul>
+          <li>Function should be two, or three, or four lines long, transparently obvious,
+             <br>told a story and led you to the next in a compelling order.</li>
+        </ul>
+      </li>
+      <li>Blocks and Indenting
+        <ul>
+          <li>Blocks within if statements, else statements, while statements, and
+so on should be one line long.<br> Probably that line should be a function call.</li>
+          <li>Functions should not be large enough to hold nested structures.<br>
+Therefore, the indent level of a function should not be greater than one or two.</li>
+        </ul>
+      </li>
+      <li>Do One Thing
+        <ul>
+          <li>Functions should do one thing. they should do it well.<br>they should do it only.</li>
+          <li>One level of abstraction below the stated name of the function.</li>
+        </ul>
+      </li>
+      <li>Has Descriptive Names
+        <ul>
+          <li>Choose function name that tell exactly what the function do.</li>
+          <li>Be consistent in your names. Use the same phrases, nouns,<br> and verbs in the function
+names you choose for your modules</li>
+        </ul>
+
+      </li>
+    </ol>
+    <h2>Function Arguments</h2>
+    <ul type="circle">
+      <li>The ideal number of arguments for a function is
+    zero (niladic).<br>Next comes one (monadic), followed
+    closely by two (dyadic). <br>Three arguments (triadic)
+    should be avoided where possible. <br>More than three
+    (polyadic) requires very special justification—and then shouldn’t be used anyway.</li>
+    <li>Common Monadic Forms (Single Argument Function):
+      <ol>
+        <li>Asking a question about that argument.<br>
+            example: boolean fileExists(“MyFile”){}
+        </li>
+        <li>Transforming the argument into something else and RETURN it.<br>
+          example:
+          <code><pre>
+InputStream fileOpen(“MyFile”){
+  InputStream stream;
+  //body
+  return stream;
+  }
+</pre></code>
+         </li>
+         <li>Flag Arguments
+           <ul>
+             <li>Passing a boolean into a function is a terrible practice<br>
+                because it does one thing if the flag is true and another if false <br>
+                instead we should split the function into two <br>
+                examples: void whenTrue(){} and void whenFalse(){}
+             </li>
+           </ul>
+
+
+         </li>
+      </ol>
+
+    </li>
+    </ul>
+<h2>Switch Statement in Function</h2>
+<ul type="circle">
+  <li>Bury the switch statement in the basement of an ABSTRACT FACTORY<br>
+    example:<code> <pre>
+public abstract class Employee {
+  public abstract boolean isPayday(); public abstract Money calculatePay();
+  public abstract void deliverPay(Money pay);
+}
+public interface EmployeeFactory {
+  public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType;
+}
+public class EmployeeFactoryImpl implements EmployeeFactory {
+  public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType {
+    switch (r.type) {
+      case COMMISSIONED:
+        return new CommissionedEmployee(r) ;
+      case HOURLY:
+        return new HourlyEmployee(r);
+      case SALARIED:
+        return new SalariedEmploye(r);
+      default:
+      throw new InvalidEmployeeType(r.type);
+    }}}</pre></code>
+  </li>
+</ul>
+
+
+
+
+  </body>
+</html>
