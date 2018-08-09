@@ -39,7 +39,7 @@ names you choose for your modules</li>
       </li>
       <li>Have No Side Effects
 <ul>
-  <li>function should do one thing, but it also does other hidden
+  <li>Function should do one thing, but it also does other hidden
 things <br>
 examples:
 <ul>
@@ -49,6 +49,19 @@ examples:
 </li>
 
 </ul>
+      </li>
+      <li>Command Query Separation <br>
+        <ul>
+          <li>Functions should either do something or answer something, but not both. <br>
+        example: <code>public boolean set(String attribute, String value);</code> <br>
+        This leads to odd statements like this:
+        <code>if (set("username", "unclebob"))...</code> <br>
+        Is it asking whether the “username” attribute was previously set to “unclebob”? <br> Or is it asking whether the
+        “username” attribute was successfully set to “unclebob”? <br>
+        The real solution is to separate the command from the query<br>
+        <code><pre>if (attributeExists("username")) {
+        setAttribute("username", "unclebob");...}</pre> </code></li>
+        </ul>
 
       </li>
     </ol>
@@ -58,7 +71,8 @@ examples:
     zero (niladic).<br>Next comes one (monadic), followed
     closely by two (dyadic). <br>Three arguments (triadic)
     should be avoided where possible. <br>More than three
-    (polyadic) requires very special justification—and then shouldn’t be used anyway.</li>
+    (polyadic) requires very special justification—and then shouldn’t be used anyway.
+    <ul>
     <li>Common Monadic Forms (Single Argument Function):
       <ol>
         <li>Asking a question about that argument.<br>
@@ -122,12 +136,29 @@ Circle makeCircle(Point center, double radius);
 </li>
     </ul>
 
-<h2>Switch Statement in Function</h2>
+</li>
+<li>Output Arguments
+<ul>
+  <li>Output arguments should be avoided. <br> If your function must change the state
+of something, have it change the state of its owning object.
+<br>example: when you see this function call <code>appendFooter(s);</code><br>
+Does this function append s as the footer to something? <br> Or does it append some footer
+to s? Is s an input or an output? <br>
+so we have to see the function declaration <code>void appendFooter(StringBuffer report)</code><br>
+it would be better for <code>appendFooter</code> to be invoked as <br>
+<code>report.appendFooter();</code>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Switch Statement in Functions</h2>
 <ul type="circle">
   <li>Bury the switch statement in the basement of an ABSTRACT FACTORY<br>
-    example:<code> <pre>
+    example:<code><pre>
 public abstract class Employee {
-  public abstract boolean isPayday(); public abstract Money calculatePay();
+  public abstract boolean isPayday();
+  public abstract Money calculatePay();
   public abstract void deliverPay(Money pay);
 }
 public interface EmployeeFactory {
@@ -147,7 +178,52 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
     }}}</pre></code>
   </li>
 </ul>
+<h2>Exceptions in Functions</h2>
+<ul type="circle">
+  <li>Prefer Exceptions to Returning Error Codes
+    <ul type="square">
+      <li>This lead to deeply nested structures, when you return an error code, <br>
+you create the problem that the caller must deal with the error immediately <br>
+example: <code><pre>
+if (deletePage(page) == E_OK) {
+  if (configKeys.deleteKey(page.name.makeKey()) == E_OK){
+      logger.log("page deleted");
+    } else {logger.log("configKey not deleted");}
+} else {logger.log("delete failed")};
+return E_ERROR;</pre></code>
+should be
+<pre>try {
+deletePage(page);
+registry.deleteReference(page.name);
+configKeys.deleteKey(page.name.makeKey());
+}
+catch (Exception e) {
+logger.log(e.getMessage());
+}</pre>
+</li>
+    </ul>
+  </li>
+  <li>Extract Try/Catch Blocks
+    <ul>
+      <li>Extract the bodies of the try and catch blocks out into functions of their own. <br>
+        example:
+        <pre>public void delete(Page page) {
+try {
+deletePageAndAllReferences(page);
+}
+catch (Exception e) {
+logError(e);
+}
+}</pre>
+       </li>
+       <li>Function that handles
+errors should do nothing else. if the keyword
+try exists in a function, <br> it should be the very first word in the function and that there
+should be nothing after the catch/finally blocks</li>
+    </ul>
 
+  </li>
+</ul>
 
 
 
