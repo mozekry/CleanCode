@@ -7,5 +7,161 @@
   <body>
   <a href="index.html">Home</a>
     <h1>Chapter 4: Comments</h1>
+    <h3>Comments Do Not Make Up for Bad Code</h3>
+    <ul>
+      <li>Do not comment bad code rewrite it.</li>
+      <li>Clear and expressive code with few comments, <br> is far superior to cluttered and complex
+code with lots of comments.</li>
+</ul>
+    <h3>Explain Yourself in Code</h3>
+<ul>
+  <li>Creat a function that says the same thing as the comment
+you want to write
+<br>example: <code> <pre>
+// Check to see if the employee is eligible for full benefits
+if ((employee.flags & HOURLY_FLAG) &&
+(employee.age > 65))</pre> </code>
+should be
+<code> <pre>if (employee.isEligibleForFullBenefits()){}</pre> </code>
+</li>
+</ul>
+<h3>Example of Good Comments</h3>
+<ol>
+  <li>Legal Comments<br>
+    copyright and authorship statements are necessary and reasonable <br>
+things to put into a comment at the start of each source file
+  </li>
+  <li>Informative Comments <br>
+provide basic information with a comment <br>
+example: <code> <pre>
+// Returns an instance of the Responder being tested.
+protected abstract Responder responderInstance();</pre>
+<pre>// format matched kk:mm:ss EEE, MMM dd, yyyy
+Pattern timeMatcher = Pattern.compile(
+"\\d*:\\d*:\\d* \\w*, \\w* \\d*, \\d*");</pre>
+</code>
+
+   </li>
+   <li>Explanation of Intent <br>
+Comments that provides the intent behind a decision.
+<br> example:
+<code> <pre>
+public int compareTo(Object o){
+  if(o instanceof WikiPagePath){
+    WikiPagePath p = (WikiPagePath) o;
+    String compressedName = StringUtil.join(names, "");
+    String compressedArgumentName = StringUtil.join(p.names, "");
+    return compressedName.compareTo(compressedArgumentName);
+  }
+return 1; // we are greater because we are the right type.
+}
+</pre></code></li>
+<li>Clarification<br>
+  translate the meaning of some obscure argument or return
+  value into something that’s readable.
+  <code> <pre>
+public void testCompareTo() throws Exception{
+  WikiPagePath a = PathParser.parse("PageA");
+  WikiPagePath ab = PathParser.parse("PageA.PageB");
+  WikiPagePath b = PathParser.parse("PageB");
+
+  assertTrue(a.compareTo(b) != 0); // a != b
+  assertTrue(aa.compareTo(ab) == -1); // aa < ab
+  assertTrue(b.compareTo(a) == 1); // b > a
+}
+</pre> </code></li>
+<li>Warning of Consequences <br>
+  Warn other programmers about certain consequences
+  <br>example: <code> <pre>
+// Don't run unless you
+// have some time to kill.
+public void _testWithReallyBigFile()
+{
+  writeLinesToFile(10000000);
+  response.setBody(testFile);
+  response.readyToSend(this);
+  String responseString = output.toString();
+  assertSubString("Content-Length: 1000000000", responseString);
+  assertTrue(bytesSent > 1000000000);
+}</pre> </code>
+</li>
+<li>TODO Comments <br>
+example:<code> <pre>
+//TODO-MdM these are not needed
+// We expect this to go away when we do the checkout model
+protected VersionInfo makeVersion() throws Exception
+{
+  return null;
+}</pre></code></li>
+<li>Amplification <br>
+A comment may be used to amplify the importance of something that may otherwise seem <br>
+inconsequential. <br>
+example: <code> <pre>
+String listItemContent = match.group(3).trim();
+// the trim is real important. It removes the starting
+// spaces that could cause the item to be recognized
+// as another list.
+new ListItemWidget(this, listItemContent, this.level + 1);
+return buildList(text.substring(match.end()));</pre> </code></li>
+</ol>
+<h3>Example of Bad Comments</h3>
+<ol>
+<li>Mumbling <br>
+Plopping in a comment is a hack. spend the time necessary to make sure <br>
+it is the best comment you can write.</li>
+<li>Redundant Comments <br>
+Comments that are not more informative than the code. <br>
+they do not justify the code, or provide intent or rationale.</li>
+<li>Misleading Comments <br>
+Comments that aren’t precise enough to be accurate.</li>
+<li>Mandated Comments <br>
+Every function and variable must have a comment.<br>
+Comments like this just clutter up the code, propagate lies, <br>
+and lend to general confusion and disorganization.</li>
+<li>Journal Comments <br>
+Comments accumulate as a kind of journal, of every change that has ever been made. <br>
+Source control systems can do this for us.</li>
+<li>Noise Comments <br>
+Comments that restate the obvious and provide no new information. <br>
+exampl: <code> <pre>
+/**
+* Default constructor.
+*/
+protected AnnualDateRule() {
+}
+</pre> </code></li>
+<li>Don’t Use a Comment When You Can Use a Function or a Variable <br>
+example:
+<code> <pre>
+// does the module from the global list &lt;mod&gt; depend on the
+// subsystem we are part of?
+if (smodule.getDependSubsystems().contains(subSysMod.getSubSystem()))
+</pre> </code>
+This could be rephrased without the comment as
+<code> <pre>
+ArrayList moduleDependees = smodule.getDependSubsystems();
+String ourSubSystem = subSysMod.getSubSystem();
+if (moduleDependees.contains(ourSubSystem))
+</pre> </code></li>
+<li>Position Markers <br>
+  Gather certain functions together beneath a banner. <br> But in general they are clutter that should be eliminated—especially the
+  noisy train of slashes at the end.</li>
+  <li>Closing Brace Comments <br>
+If you find yourself wanting to mark your closing braces, try to shorten your functions instead.
+   </li>
+   <li>Commented-Out Code</li>
+   <li>Nonlocal Information <br>
+     The comments that not describing the function, but some other,
+     far distant part of the system.</li>
+     <li>Too Much Information <br>
+Historical discussions or irrelevant descriptions of details</li>
+<li>Inobvious Connection <br>
+  The purpose of a comment is to explain code that does not explain itself. <br> It is a pity
+  when a comment needs its own explanation.</li>
+  <li>Function Headers <br>
+    A well-chosen name for a small function that <br>
+    does one thing is usually better than a comment header.
+   </li>
+</ol>
   </body>
 </html>
