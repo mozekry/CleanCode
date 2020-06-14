@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>5 (Formatting)</title>
+  </head>
+  <body>
+  <a href="index.html">Home</a>
+<h1>Chapter 5: Formatting</h1>
+<h3>The Purpose of Formatting</h3>
+  <ul>
+<li>The functionality that you create today has a good chance of changing in the next<br />release, but the readability of your code will have a profound effect on all the changes<br />that will ever be made. The coding style and readability set precedents that continue to<br />affect maintainability and extensibility long after the original code has been changed<br />beyond recognition.</li>
+</ul>
+  <h3>Vertical Formatting: How big should a source file be?</h3>
+<ul>
+<li>The name of the source file should be simple<br />but explanatory.</li>
+<li>The name, by itself, should be sufficient to tell us whether we are in the<br />right module or not.</li>
+<li>The topmost parts of the source file should provide the high-level<br />concepts and algorithms. Detail should increase as we move downward, until at the end we find the lowest level functions and details in the source file.</li>
+</ul>
+<h3>Vertical Openness Between Concepts</h3>
+<ul>
+<li>There should be blank lines that separate the package<br />declaration, the import(s), and each of the functions.<br />example:<br/><code><pre>package fitnesse.wikitext.widgets;<br /><br />import java.util.regex.*;<br /><br />public class BoldWidget extends ParentWidget {<br /><br />public static final String REGEXP = "'''.+?'''";<br /><br />private static final Pattern pattern = Pattern.compile("'''(.+?)'''",<br />Pattern.MULTILINE + Pattern.DOTALL<br />);<br /><br />public BoldWidget(ParentWidget parent, String text) throws Exception {<br />super(parent);<br />Matcher match = pattern.matcher(text);<br />match.find();<br />addChildWidgets(match.group(1));<br />}<br />}</pre></code></li>
+</ul>
+ <h3>Vertical Density</h3>
+<ul>
+<li>Vertical density implies close association.</li>
+<li>Lines of code that are tightly related should appear vertically dense.
+<br> example: <code> <pre>
+public class ReporterConfig {
+/**
+* The class name of the reporter listener
+*/
+private String m_className;
+/**
+* The properties of the reporter listener
+*/
+private List<Property> m_properties = new ArrayList<Property>();
+public void addProperty(Property property) {
+m_properties.add(property);
+}</pre> </code>
+should be 
+<code> <pre>public class ReporterConfig {<br/>
+private String m_className;
+private List<Property> m_properties = new ArrayList<Property>();
+<br/>
+public void addProperty(Property property) {
+m_properties.add(property);
+}
+}</pre> </code>
+</li>
+</ul>
+  <h3>Vertical Distance</h3>
+<ul>
+<li>Concepts that are closely related should be kept vertically close to each other.</li>
+<li>Closely related concepts should not be separated into different files unless you have a very good reason.</li>
+<li>Concepts that are so closely related that they belong in the same source file,<br />their vertical separation should be a measure of how important each is to the understandability of the other.</li>
+</ul>
+<h3>Variable Declarations</h3>
+<ul>
+<li>Variables should be declared as close to their usage as possible.</li>
+<li>Local variables should appear a the top of each function.</li>
+<li>Control variables for loops should usually be declared within the loop statement.</li>
+</ul>
+<h3>Instance variables</h3>
+<ul>
+<li>Should be declared at the top of the class</li>
+</ul>
+<h3>Dependent Functions</h3>
+<ul>
+<li>If one function calls another, they should be vertically close,<br />and the caller should be above the callee</li>
+</ul>
+<h3>Conceptual Affinity </h3>
+<p>Blocks of code that are conceptually related<br/> for example (function calling another function or a function using a variable or group of functions perform a similar operation)</p>
+<ul>
+<li>The stronger that affinity, the less vertical distance there should be between them.</li>
+</ul>
+<h3>Vertical Ordering</h3>
+<ul>
+<li>A function that is called should be below a function that does the calling.</li>
+<li>The most important concepts come first<br />and we expect them to be expressed with the least amount of polluting detail.</li>
+<li>Low-level details come last.</li>
+</ul>
+  </body>
+</html>
